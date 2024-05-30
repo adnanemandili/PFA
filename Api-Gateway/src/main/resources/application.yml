@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: Api-Gateway
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: authentication
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/auth/**
+
+eureka:
+  client:
+    register-with-eureka: false
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8090
